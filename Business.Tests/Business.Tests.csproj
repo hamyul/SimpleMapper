@@ -50,6 +50,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Helpers\Employee.cs" />
+    <Compile Include="Helpers\Student.cs" />
     <Compile Include="Helpers\Person.cs" />
     <Compile Include="InitializerTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

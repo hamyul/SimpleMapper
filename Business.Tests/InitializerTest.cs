@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using Business.Tests.Helpers;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -49,6 +50,46 @@ namespace Business.Tests
 
             var expected = sut.Map<Employee>(person);
             Assert.IsTrue(expected.FirstName == person.FirstName && expected.LastName == person.LastName);
+        }
+
+        [TestMethod]
+        public void should_map_lists_when_source_is_subtype_of_destination()
+        {
+            var sut = new Initializer();
+
+            var john = new Person() { FirstName = "John", LastName = "Lennon", Age = 18 };
+            var ringo = new Person() { FirstName = "Ringo", LastName = "Starr", Age = 16 };
+            var paul = new Person() { FirstName = "Paul", LastName = "McCartney", Age = 17 };
+            var george = new Person() { FirstName = "George", LastName = "Harrison", Age = 15 };
+
+            john.IsFriendsWith(ringo)
+                .IsFriendsWith(george)
+                .IsFriendsWith(paul);
+
+
+            var expected = sut.Map<Student>(john);
+            Assert.IsTrue(expected.Friends.Any(a => a.FirstName == paul.FirstName && a.LastName == paul.LastName) &&
+                          expected.Friends.Any(a => a.FirstName == ringo.FirstName && a.LastName == ringo.LastName) &&
+                          expected.Friends.Any(a => a.FirstName == george.FirstName && a.LastName == george.LastName));
+        }
+
+        [TestMethod]
+        public void should_not_map_lists_when_destination_is_subtype_of_source()
+        {
+            var sut = new Initializer();
+
+            var john = new Student() { FirstName = "John", LastName = "Lennon", Age = 18 };
+            var ringo = new Person() { FirstName = "Ringo", LastName = "Starr", Age = 16 };
+            var paul = new Person() { FirstName = "Paul", LastName = "McCartney", Age = 17 };
+            var george = new Person() { FirstName = "George", LastName = "Harrison", Age = 15 };
+
+            john.IsFriendsWith(ringo)
+                .IsFriendsWith(george)
+                .IsFriendsWith(paul);
+
+
+            var expected = sut.Map<Person>(john);
+            Assert.IsTrue(expected.Friends.Count() == 0);
         }
     }
 }

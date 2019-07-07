@@ -2,14 +2,15 @@
 
 namespace Business.Tests.Helpers
 {
-    public class Person
+    public class Student
     {
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public int Age { get; set; }
-        public List<Person> Friends { get; set; } = new List<Person>();
+        public List<Student> Classmates { get; set; } = new List<Student>();
+        public IEnumerable<Person> Friends { get; set; } = new List<Person>();
 
-        public Person IsFriendsWith(Person person)
+        public Student IsFriendsWith(Person person)
         {
             (Friends as List<Person>).Add(person);
             return this;
