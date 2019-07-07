@@ -1,7 +1,30 @@
-﻿using System;
-using System.Linq;
+﻿/*
+MIT License
+
+Copyright (c) 2019 Hammond Soares
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+*/
+
 using Business.Tests.Helpers;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System.Linq;
 
 namespace Business.Tests
 {
@@ -66,7 +89,6 @@ namespace Business.Tests
                 .IsFriendsWith(george)
                 .IsFriendsWith(paul);
 
-
             var expected = sut.Map<Student>(john);
             Assert.IsTrue(expected.Friends.Any(a => a.FirstName == paul.FirstName && a.LastName == paul.LastName) &&
                           expected.Friends.Any(a => a.FirstName == ringo.FirstName && a.LastName == ringo.LastName) &&
@@ -86,7 +108,6 @@ namespace Business.Tests
             john.IsFriendsWith(ringo)
                 .IsFriendsWith(george)
                 .IsFriendsWith(paul);
-
 
             var expected = sut.Map<Person>(john);
             Assert.IsTrue(expected.Friends.Count() == 0);
